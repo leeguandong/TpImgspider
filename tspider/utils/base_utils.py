@@ -59,3 +59,13 @@ def record_url(html_url, html_title, page, index):
         burl.write(str(page) + "_" + str(index))
         burl.write("\n")
         burl.flush()
+
+
+def record_txt(html_text, html_title, index, ):
+    with open(os.path.join(TXTPATH, str(index) + ".txt"), 'a', encoding='utf-8') as burl:
+        burl.write('---')
+        burl.write('\n')
+        burl.write(f'标题：{html_title[0].strip()}')
+        burl.write('\n---\n')
+        burl.write(html_text)
+        burl.write('\n')

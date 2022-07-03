@@ -2,6 +2,7 @@
 @Time    : 2021/1/26 10:25
 @Author  : 19045845
 '''
+import json
 from tspider.utils import Registry
 
 WEBSITEDICT = Registry("websitedict")
@@ -9,7 +10,7 @@ WEBSITEDICT = Registry("websitedict")
 
 @WEBSITEDICT.register_module
 def qiantu(sp):
-    data_url = sp.xpath("//div[@class='pic-box clearfix ']/div/a/div/img/@data-original")
+    data_url = sp.xpath("//div[@class='pic-box clearfix ']/div/a/div/img/@data-original") # //*[@id='qt-app']/div/div/div[5]/div[2]/div[1]/a/div[1]/img/@data-original
     data_title = sp.xpath("//div[@class='pic-box clearfix ']/div/a/div/img/@title")
     return data_url, data_title
 
@@ -106,3 +107,9 @@ def qiantu_banner(sp):
 @WEBSITEDICT.register_module
 def ace_promoteMarketing():
     pass
+
+
+@WEBSITEDICT.register_module
+def smzdm(sp):
+    data_url = sp.xpath("//*[@id='feed-main']/div//a[@class='shaiwu-card-title']/@href")
+    return data_url

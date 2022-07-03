@@ -9,11 +9,11 @@ from tspider.commands.entrance import ENTRANCEDICT
 def parse_args():
     parser = argparse.ArgumentParser(description="download")
     parser.add_argument("--proxies", type=bool, default=False)
-    parser.add_argument("--name", type=str, default="ace_promoteMarketing",
+    parser.add_argument("--name", type=str, default="smzdm",
                         choices=["dpa", "goods", "qiantu", "shetu", "mizhi", "gaoding", "burst", "kaboompics", "negativespace",
                                  "freestocks", "pexels", "gaoding_product_main_image", "tusiji_main_image", "tusiji_detail_image",
                                  "canva_poster", "JD_linglong", "tuguaishou_poster", "qiantu_banner", "ace_socialPoster",
-                                 "ace_atmosphere", "artstore", "ued", "ace_promoteMarketing"])
+                                 "ace_atmosphere", "artstore", "ued", "ace_promoteMarketing",'smzdm'])
     args = parser.parse_args()
     return args
 

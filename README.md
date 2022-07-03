@@ -37,6 +37,16 @@ spider：网页的下载链接
 #### 8.utils
 
 
+## Tips
+1.命名规则
+
+
+2.xpath
+http://c.biancheng.net/python_spider/xpath.html
+
+
+3. 设计上缺陷还是比较多
+
 
 
 

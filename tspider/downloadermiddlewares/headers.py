@@ -16,10 +16,13 @@ ued_cookie = "experimentation_subject_id=IjU1NGUzYzRmLTcwOTktNGI3MC04ODAwLWEwZmR
 
 normal_cookie = ""
 
+smzdm_cookie = 'device_id=8271777191613021150309751643856a8a90da15f3c9aff057bf3fc6a; _ga=GA1.2.455928995.1613021152; __ckguid=orf5VS7k7nNqhJWcPkR13h6; homepage_sug=d; r_sort_type=score; smzdm_user_source=844ABD6FC9B13DE5399265B3DCF37F65; Hm_lvt_9b7ac3d38f30fe89ff0b8a0546904e58=1656231662,1656236491,1656245606,1656766544; shequ_pc_sug=b; __jsluid_s=2ec1b6eb12cb8b678195e11a088b51f3; isShowGuide2=0; _zdmA.uid=ZDMA.iZq-j-NaK.1656771237.2419200; __jsluid_h=86249c78e66b7862fc16951d77a1ffbe; Hm_lpvt_9b7ac3d38f30fe89ff0b8a0546904e58=1656774414; sensorsdata2015jssdkcross={"distinct_id":"3370606578","first_id":"1778f8d7aee108-021abf116aa9f-53e3566-1702481-1778f8d7aef3f6","props":{"$latest_traffic_source_type":"直接流量","$latest_search_keyword":"未取到值_直接打开","$latest_referrer":""},"$device_id":"1778f8d7aee108-021abf116aa9f-53e3566-1702481-1778f8d7aef3f6"}; sess=AT-zv7qTFUivU88rY0/yrNRR8jCYlw6E3sHPu9ueJCmL5olINjDMH6Ro7GsgRuwpNMtJBXdjwHPGJm959P/aHIz+qAGEP+5so/eduBYu62HlWCcOsU6qEZR29Q=; user=user:3370606578|3370606578; smzdm_id=3370606578'
+
 header = {
     'User-Agent': user_agent,
     "Connection": "keep-alive",
-    'Cookie': ace_cookie
+    # 'Cookie': smzdm_cookie.encode("utf-8").decode("latin1")
+    # 'Cookie':qiantu_cookie
 }
 
 # header = {

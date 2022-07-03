@@ -6,11 +6,11 @@ from tqdm import tqdm
 from tspider.core import TRequest
 from tspider.downloadermiddlewares import header, proxies
 from tspider.pipelines import Download
-from tspider.settings.config import IMGPATH, IMGWEB1, IMGWEB, TXTPATH, CATEGORY_LIBRARY, WEBNAME
+from tspider.settings.config import TEXTWEB, IMGPATH, IMGWEB, TXTPATH, CATEGORY_LIBRARY, WEBNAME  # IMGWEB1,
 from tspider.spidermiddlewares import WEBSITEDICT
 from tspider.spiders import SPIDERDICT
 from tspider.utils import Registry
-from tspider.utils import geturls, record_url, MyEncoder
+from tspider.utils import geturls, record_url, MyEncoder, record_txt
 
 ENTRANCEDICT = Registry("entrancedict")
 
@@ -92,7 +92,8 @@ def ace_promoteMarketing(args):
                 responsejson = response.json()
             market_dict = SPIDERDICT.get(args.name)(args, IMGWEB1, header, responsejson, market_dict)
 
-            json.dump(market_dict, open(os.path.join(TXTPATH, "market.json"), "w", encoding="utf-8"), indent=4, ensure_ascii=False,
+            json.dump(market_dict, open(os.path.join(TXTPATH, "market.json"), "w", encoding="utf-8"), indent=4,
+                      ensure_ascii=False,
                       cls=MyEncoder)
     else:
         f = open(os.path.join(TXTPATH, "market.json"), encoding="utf-8").read()
@@ -108,6 +109,37 @@ def ace_promoteMarketing(args):
                     Download(psdfile["designUrl"], header, proxies, dirname, psdfile["designName"]).images()
 
 
+@ENTRANCEDICT.register_module
+def smzdm(args):
+    for index in tqdm(range(0, 100)):
+        try:
+            sp = TRequest(TEXTWEB.format(index), headers=header, proxies=args.proxies).request_get_text_sp()
+
+            data_url = WEBSITEDICT.get(args.name)(sp)
+            for index, url in tqdm(enumerate(data_url)):
+                html_text, html_title = SPIDERDICT.get(args.name)(args, header, url)
+                html_text_ = ''
+                for text in html_text:
+                    html_text_ += text
+                record_txt(html_text_, html_title, index)
+        except:
+            print('什么值得买failed！！！')
 
 
+@ENTRANCEDICT.register_module
+def qiantu(args):
+    for page in tqdm(range(1, 44)):
+        sp = TRequest(IMGWEB.format(page), headers=header, proxies=args.proxies).request_get_text_sp()
 
+        data_url, data_title = WEBSITEDICT.get(args.name)(sp)
+
+        for index, (banner_url, banner_title) in tqdm(enumerate(zip(data_url, data_title))):
+            try:
+                html_url, html_title = SPIDERDICT.get(args.name)(banner_url, banner_title)
+                record_url(html_url, html_title, page, index)
+
+                dirname = os.path.join(IMGPATH, name='temp')
+                if not os.path.exists(dirname): os.mkdir(dirname)
+                Download(html_url, header, proxies, dirname, html_title).images()
+            except:
+                continue

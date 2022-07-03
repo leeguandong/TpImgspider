@@ -90,7 +90,18 @@ def ace_promoteMarketing(args, IMGWEB1, header, responsejson, market_dict):
 
         if math.ceil(submarkertingjson["data"]["totalDataCount"] / submarkertingjson["data"]["pageSize"]) > 1:
             for subpage in range(2, math.ceil(
-                                    submarkertingjson["data"]["totalDataCount"] / submarkertingjson["data"]["pageSize"] + 1)):
+                                    submarkertingjson["data"]["totalDataCount"] / submarkertingjson["data"][
+                                "pageSize"] + 1)):
                 submarkertingjson1 = subquery(id, subpage)
                 market_dict["data"][index]["datas"].extend(submarkertingjson1["data"]["datas"])
     return market_dict
+
+
+@SPIDERDICT.register_module
+def smzdm(args, header, url):
+    sp = TRequest(url, headers=header, proxies=args.proxies).request_get_text_sp()
+    html_text = sp.xpath('//*[@id="articleId"]/div[2]/p/text()')
+    html_title = sp.xpath('//*[@id="articleId"]//span[@class="card-name"]/text()')
+    if len(html_title) == 0:
+        html_title = sp.xpath('//*[@id="articleId"]/h1/text()[2]')
+    return html_text, html_title
